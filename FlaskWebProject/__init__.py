@@ -12,6 +12,7 @@ import FlaskWebProject.views
 app = Flask(__name__)
 app.config.from_object(Config)
 # logging levels and handlers with app.logger
+app.logger.setLevel(logging.WARNING)
 streamHandler = logging.StreamHandler()
 streamHandler.setLevel(logging.WARNING)
 app.logger.addHandler(streamHandler)
