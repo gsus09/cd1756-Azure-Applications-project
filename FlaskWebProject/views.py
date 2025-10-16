@@ -76,6 +76,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
+            app.logger.warning(f"{user.username} login successfully")
             next_page = url_for('home')
         return redirect(next_page)
     session["state"] = str(uuid.uuid4())
@@ -105,7 +106,7 @@ def authorized():
         # Here, we'll use the admin username for anyone who is authenticated by MS
         user = User.query.filter_by(username="admin").first()
         login_user(user)
-        app.logger.warning(f"{user.username} logged in successfully")
+        app.logger.warning(f"{user.username} authorized in successfully")
         _save_cache(cache)
     return redirect(url_for('home'))
 
